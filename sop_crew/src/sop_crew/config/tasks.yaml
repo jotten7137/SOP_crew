@@ -1,15 +1,33 @@
-research_task:
+step_task:
   description: >
-    Conduct a thorough research about {topic}
-    Make sure you find any interesting and relevant information given
-    the current year is 2024.
+    Define the steps required to create {topic}.
   expected_output: >
-    A list with 10 bullet points of the most relevant information about {topic}
+    A detailed, step-by-step list of actions.
+
+document_task:
+  description: >
+    Review the context you got and expand each step for a standard operating procedure document.
+    Make sure the document is detailed and contains any and all relevant information.
+  expected_output: >
+    A draft SOP document 
+
+quality_task:
+  description: >
+    Review the context you got and analyze it for any errors, illogical 
+    processesing or incorrect information.
+  expected_output: >
+    A revised SOP document
+
+visual_task:
+  description: >
+    Review the context you received and create a visual represenation of the process.
+  expected_output: >
+    visual representation of the process in the form of a an infographic or flowchart
 
 reporting_task:
   description: >
-    Review the context you got and expand each topic into a full section for a report.
+    Review the context you got and organize the information.
     Make sure the report is detailed and contains any and all relevant information.
   expected_output: >
-    A fully fledge reports with the mains topics, each with a full section of information.
+    A finalized, printable PDF SOP document on {topic}.
     Formatted as markdown without '```'

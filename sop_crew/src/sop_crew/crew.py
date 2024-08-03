@@ -8,44 +8,95 @@ from crewai.project import CrewBase, agent, crew, task
 # from crewai_tools import SerperDevTool
 
 @CrewBase
-class SopCrewCrew():
-	"""SopCrew crew"""
+class SOPCrew():
+	"""SOP crew"""
 	agents_config = 'config/agents.yaml'
 	tasks_config = 'config/tasks.yaml'
 
+# Agents
 	@agent
-	def researcher(self) -> Agent:
+	def process_owner(self) -> Agent:
 		return Agent(
-			config=self.agents_config['researcher'],
+			config=self.agents_config['process_owner'],
 			# tools=[MyCustomTool()], # Example of custom tool, loaded on the beginning of file
 			verbose=True
 		)
 
 	@agent
-	def reporting_analyst(self) -> Agent:
+	def documentation_specialist(self) -> Agent:
 		return Agent(
-			config=self.agents_config['reporting_analyst'],
+			config=self.agents_config['documentation_specialist'],
+			verbose=True
+		)
+	
+	@agent
+	def quality_assurance(self) -> Agent:
+		return Agent(
+			config=self.agents_config['quality_assurance'],
+			verbose=True
+		)
+	
+	@agent
+	def graphic_designer(self) -> Agent:
+		return Agent(
+			config=self.agents_config['graphic_designer'],
+			verbose=True
+		)
+	
+	@agent
+	def conversion_specialist(self) -> Agent:
+		return Agent(
+			config=self.agents_config['conversion_specialist'],
 			verbose=True
 		)
 
+
+# Tasks
 	@task
-	def research_task(self) -> Task:
+	def step_task(self) -> Task:
 		return Task(
-			config=self.tasks_config['research_task'],
-			agent=self.researcher()
+			config=self.tasks_config['step_task'],
+			agent=self.process_owner(),
+			output_file='markdown/process_owner_steps.md'
 		)
 
+	@task
+	def document_task(self) -> Task:
+		return Task(
+			config=self.tasks_config['document_task'],
+			agent=self.documentation_specialist(),
+			output_file='markdown/SOP_draft.md'
+		)
+	
+	@task
+	def quality_task(self) -> Task:
+		return Task(
+			config=self.tasks_config['quality_task'],
+			agent=self.quality_assurance(),
+			output_file='markdown/SOP_revised.md'
+		)
+	
+	@task
+	def visual_task(self) -> Task:
+		return Task(
+			config=self.tasks_config['visual_task'],
+			agent=self.graphic_designer(),
+			output_file='markdown/visual.md'
+		)
+	
 	@task
 	def reporting_task(self) -> Task:
 		return Task(
 			config=self.tasks_config['reporting_task'],
-			agent=self.reporting_analyst(),
-			output_file='report.md'
+			agent=self.conversion_specialist(),
+			output_file='markdown/SOP.md'
 		)
 
+
+# Crew
 	@crew
 	def crew(self) -> Crew:
-		"""Creates the SopCrew crew"""
+		"""Creates the SOP Crew"""
 		return Crew(
 			agents=self.agents, # Automatically created by the @agent decorator
 			tasks=self.tasks, # Automatically created by the @task decorator
