@@ -1,2 +1,2 @@
 # SOP_crew
-Generate SOPs using CrewAI
+Generate SOPs using CrewAI / Langraph
