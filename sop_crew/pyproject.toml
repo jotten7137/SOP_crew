@@ -1,0 +1,18 @@
+[tool.poetry]
+name = "sop_crew"
+version = "0.1.0"
+description = "sop_crew using crewAI"
+authors = ["Your Name <you@example.com>"]
+
+[tool.poetry.dependencies]
+python = ">=3.10,<=3.13"
+crewai = { extras = ["tools"], version = "^0.41.1" }
+
+[tool.poetry.scripts]
+sop_crew = "sop_crew.main:run"
+train = "sop_crew.main:train"
+replay = "sop_crew.main:replay"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
